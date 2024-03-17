@@ -1,0 +1,25 @@
+.favourite-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 8px 16px;
+    transition: background-color 0.3s, transform 0.1s;
+    font-size: 1rem;
+    color: #333;
+  }
+  
+  .favourite-button img {
+    width: 24px;
+    margin-right: 8px;
+  }
+  
+  .favourite-button:hover {
+    background-color: #f0f0f0;
+  }
+  
+  .favourite-button:active {
+    transform: scale(0.96);
+  }
