@@ -9,10 +9,13 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "firebase": "^10.9.0",
+    "mdb-vue-ui-kit": "^4.1.1",
+    "primevue": "^3.50.0",
     "vue": "^3.4.21"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^5.0.4",
-    "vite": "^5.1.5"
+    "vite": "^5.1.6"
   }
 }
