@@ -1,19 +1,35 @@
+<template>
+  <div id="app">
+    <!-- Include your SearchFilter component here -->
+    <SearchFilter />
+  </div>
+</template>
+
 <script>
-export default {
-  name: 'App'
-}
-</script>
 
 <template>
   <router-view/>
 </template>
 
+import { ref } from 'vue'; // Import the ref function
+// Import the SearchFilter component
+import SearchFilter from './components/SearchFliter.vue';
+
+export default {
+  name: 'App',
+  components: {
+    SearchFilter, // Register the SearchFilter component
+  },
+}
+</script>
+
 <style>
 #app {
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: Roboto, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  margin-top: 30px;
+  color: #2c3e50;
+  margin-top: 60px;
 }
 </style>
