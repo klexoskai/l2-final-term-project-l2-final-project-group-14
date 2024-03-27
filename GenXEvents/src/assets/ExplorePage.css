@@ -1,0 +1,35 @@
+#Explore {
+    text-align: left;
+    color: black;
+    margin-left: 100px;
+}
+
+body {
+    background-color: #ffcc00;
+}
+
+.recommendation-item {
+    margin-left: 90px;
+}
+
+.custom-card {
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 16px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s ease;
+  width: 25rem;
+  float: left;
+  margin: 10px;
+  background-color: rgb(253, 247, 247);
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.h3 {
+  font-weight: bold;
+}
+
+.custom-card:hover {
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
+}

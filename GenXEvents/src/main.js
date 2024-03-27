@@ -8,10 +8,11 @@ import 'primevue/resources/themes/aura-light-green/theme.css'
 import { createApp } from 'vue'
 import App from './App.vue'
 import PrimeVue from 'primevue/config'
+import router from './routers.js';
+
+const app = createApp(App);
+app.use(router);
+app.use(PrimeVue);
+app.mount('#app');
 import Dropdown from 'primevue/dropdown'
-
-const app = createApp(App)
-app.use(PrimeVue)
 app.component('Dropdown', Dropdown)
-app.mount('#app')
-

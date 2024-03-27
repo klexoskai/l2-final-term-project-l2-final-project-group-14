@@ -6,6 +6,11 @@
 </template>
 
 <script>
+
+<template>
+  <router-view/>
+</template>
+
 import { ref } from 'vue'; // Import the ref function
 // Import the SearchFilter component
 import SearchFilter from './components/SearchFliter.vue';

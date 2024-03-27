@@ -50,5 +50,5 @@
   </script>
 
 <style>
-@import './FavouriteButton.vue';
+@import '../assets/FavouriteButton.css';
 </style>
