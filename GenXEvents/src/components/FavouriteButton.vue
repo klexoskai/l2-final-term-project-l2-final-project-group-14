@@ -50,5 +50,5 @@
   </script>
 
 <style>
-@import 'GenXEvents/src/assets/FavouriteButton.css';
+@import '../assets/FavouriteButton.css';
 </style>

@@ -1,14 +1,11 @@
 <script>
-import ExplorePage from './components/ExplorePage.vue'
-
 export default {
-  name: 'App',
-  components: {ExplorePage}
+  name: 'App'
 }
 </script>
 
 <template>
-  <ExplorePage/>
+  <router-view/>
 </template>
 
 <style>
