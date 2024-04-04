@@ -1,7 +1,7 @@
 <template>
   <div id="app">
+    <Test />
     <!-- Include your SearchFilter component here -->
-    <SearchFilter />
   </div>
 </template>
 
@@ -13,12 +13,12 @@
 
 import { ref } from 'vue'; // Import the ref function
 // Import the SearchFilter component
-import SearchFilter from './components/SearchFliter.vue';
+import Test from './components/test.vue';
 
 export default {
   name: 'App',
   components: {
-    SearchFilter, // Register the SearchFilter component
+    Test, // Register the SearchFilter component
   },
 }
 </script>

@@ -13,8 +13,9 @@
     "primeicons": "^4.0.0",
     "primevue": "^3.50.0",
     "vue": "^3.4.21",
-    "vue-router": "^4.3.0"
+    "vue-router": "^4.3.0",
     "mdb-vue-ui-kit": "^4.1.1",
+    "vuetify": "^3.5.12"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^5.0.4",
