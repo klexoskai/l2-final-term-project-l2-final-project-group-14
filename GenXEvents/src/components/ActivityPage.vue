@@ -18,6 +18,7 @@
                         <img src="@/assets/sample-activity-img.jpg" alt="Activity Image" />
                     </div>
                         <p>{{ sessionDescription }}</p>
+                        <p> Cost: ${{ sessionCost }}</p>
                         <div class="location">
                             <i class="pi pi-map-marker"></i>
                             <p>Location: {{ location }}, {{ locationEstate }}</p>
@@ -33,8 +34,25 @@
 
             <div class="right-column">
                 <div class="actions">
-                    <Button label="Add to Favourite" icon="pi pi-heart" class="p-button-warning"></Button>
+                  <ToggleButton
+                    v-model="isFavorite"
+                    on-icon="pi pi-heart-fill"
+                    off-icon="pi pi-heart"
+                    on-label="Remove from Favorite"
+                    off-label="Add to Favorite"
+                    on-change="handleToggle"
+                    class="custom-toggle-button"
+                    
+                  />
+                    <!-- <Button label="Add to Favourite" icon="pi pi-heart" class="p-button-warning"></Button> -->
                     <Button label="Go to Sign up Page" class="p-button-success signup-button"></Button>
+                </div>
+
+                <div class="category-tags">
+                  <Button v-for="(tag, index) in tags" :key="index" :label="tag" class="p-button-rounded p-button-outlined" disabled></Button>
+                  <!-- <Button label="Fitness" class="p-button-rounded p-button-outlined" disabled></Button>
+                  <Button label="Cultural" class="p-button-rounded p-button-outlined" disabled></Button> -->
+                  <!-- Add more tags as needed -->
                 </div>
             <div class="comments">
                 <h3>Rate this activity and leave a comment</h3>
@@ -43,7 +61,7 @@
             <div class="user-comments">
                 <h3>Users’ rating and comments</h3>
                 <div class="comment">
-                    <CommentsSectionAgain />
+                    <CommentsSection />
                 </div>
             </div>
         </div>
@@ -56,12 +74,13 @@
 import Button from 'primevue/button';
 import Textarea from 'primevue/textarea';
 import CommentsForm from './CommentsForm.vue';
-import CommentsSectionAgain from './CommentsSectionAgain.vue';
+import CommentsSection from './CommentsSection.vue';
 import FavouriteButton from './FavouriteButton.vue';
 import ToggleButton from 'primevue/togglebutton';
 import { activitiesCollection } from '../firebase';
 import { db } from '../firebase'; 
-import { getDocs, doc } from "firebase/firestore";
+import { getDoc, doc } from "firebase/firestore";
+
 
   
 // const activitiesRef = setDoc(); // Reference to the "activities" collection
@@ -72,13 +91,14 @@ import { getDocs, doc } from "firebase/firestore";
       Button,
       Textarea,
       CommentsForm,
-      CommentsSectionAgain,
+      CommentsSection,
       FavouriteButton,
       ToggleButton
     },
     setup() {
       
     // Define reactive variables for your data
+    const isFavorite = ref(false);
     const sessionTitle = ref('Dino Origami Session');
     const sessionRating = ref(4.2);
     const upcomingDate = ref('23rd March, 4pm');
@@ -86,36 +106,62 @@ import { getDocs, doc } from "firebase/firestore";
     const happeningTime = ref('6:00am - 8:00am');
     const activityImageUrl = ref('@/assets/sample-activity-img.jpg'); // You will need to adjust this after fetching from Firestore
     const sessionDescription = ref('Join us for a roaring good time as we fold, crease, and create our way into the Mesozoic era at the Dinosaur Origami Workshop! Secure your spot now for a memorable and crafty adventure. 🦕✨');
+    const sessionCost = ref('10');
     const location = ref('Potong Pasir CC');
     const locationEstate = ref('Potong Pasir');
     const otherDates = ref(['No other upcoming dates.']); // Example if there are multiple dates
-    const activitiesRef = doc(db, 'activities', '1');
-    const fetchDataFromFirestore = async () => {
-      try {
-        const querySnapshot = await getDocs(activitiesCollection);
-        querySnapshot.forEach(doc => {
-          const data = doc.data();
-          sessionTitle.value = data.Type;
-          sessionRating.value = data.Rating;
-          upcomingDate.value = data.Date;
-          happeningTime.value = data.Time;
-          dateOfWeek.value = data.Day;
-          activityImageUrl.value = data.ImageUrl;
-          sessionDescription.value = data.Description;
-          location.value = data.Location;
-          locationEstate.value = data['Location Estate'];
-          otherDates.value = data.OtherDates || [];
-        });
-      } catch (error) {
-        console.error('Error fetching activities: ', error);
+    const tags = ref(['Fitness, DIY']);
+
+    const fetchDataFromFirestore = async (documentId) => {
+  try {
+    const docRef = doc(activitiesCollection, documentId); // '3' is the document ID
+    const docSnapshot = await getDoc(docRef);
+    if (docSnapshot.exists()) {
+      const data = docSnapshot.data();
+      sessionTitle.value = data.Type;
+      sessionRating.value = data.Rating;
+      upcomingDate.value = data.Date;
+      happeningTime.value = data.Time;
+      dateOfWeek.value = data.Day;
+      activityImageUrl.value = data.ImageUrl;
+      sessionDescription.value = data.Description;
+      sessionCost.value = data.Cost;
+      location.value = data.Location;
+      locationEstate.value = data['Location Estate'];
+      otherDates.value = data.OtherDates || [];
+
+      if (data.Tags) {
+        tags.value = data.Tags.split(',').map(tag => tag.trim());
+      } else {
+        tags.value = ['Fun'];
+      }
+
+    } else {
+      console.log('No such document!');
+    }
+  } catch (error) {
+    console.error('Error fetching activities: ', error);
+  }
+};
+
+const handleToggle = () => {
+      // Handle the toggle functionality here
+      if (isFavorite.value) {
+        // Remove from favorite logic
+        console.log('Removed from favorite');
+      } else {
+        // Add to favorite logic
+        console.log('Added to favorite');
       }
     };
 
-    onMounted(() => {
-      fetchDataFromFirestore();
-    });
+onMounted(() => {
+  const selectedDocumentId = '4';
+  fetchDataFromFirestore(selectedDocumentId);
+});
 
     return {
+      isFavorite,
       sessionTitle,
       sessionRating,
       upcomingDate,
@@ -123,9 +169,12 @@ import { getDocs, doc } from "firebase/firestore";
       dateOfWeek,
       activityImageUrl,
       sessionDescription,
+      sessionCost,
       location,
       locationEstate,
-      otherDates
+      otherDates,
+      tags,
+      handleToggle
     };
   }
 };
@@ -149,9 +198,6 @@ import { getDocs, doc } from "firebase/firestore";
   padding: 1em; */
   margin-right: auto;
 }
-
-
-
   .activity-details {
     font-family: 'Arial', sans-serif;
     max-width: 800px;
@@ -169,7 +215,7 @@ import { getDocs, doc } from "firebase/firestore";
   
   
   .rating {
-  background-color: #ffcc00; /* A yellow background */
+  background-color: #f59e0b;
   padding: 8px 12px; /* Some padding for spacing */
   border-radius: 5px; /* Rounded corners */
   display: inline-block; /* Makes the div inline so it only takes up as much space as needed */
@@ -179,7 +225,7 @@ import { getDocs, doc } from "firebase/firestore";
 
 .rating p {
   margin: 0; /* Remove default paragraph margin */
-  color: #333; /* Dark text for contrast */
+  color: white; /* Dark text for contrast */
   font-weight: bold; /* Optional: makes the text bold */
 }
 
@@ -212,6 +258,8 @@ import { getDocs, doc } from "firebase/firestore";
   height: 100%; /* Image will scale to the height of the container */
   object-fit: cover; /* Ensures the image covers the container, maintaining its aspect ratio */
 }
+
+
   
   .location {
     display: flex;
@@ -231,11 +279,26 @@ import { getDocs, doc } from "firebase/firestore";
     margin-top: 1em;
     color:#ff9900;
   }
-  
-  .p-button {
-    font-weight: bold;
-  }
-  
+
+.p-button {
+  font-weight: bolder !important;
+}
+.p-togglebutton.p-component.custom-toggle-button {
+  color: #f59e0b;
+}
+
+.custom-toggle-button .p-togglebutton-icon.pi-heart-fill:before {
+  color: #FF6347; /* Red color for the filled heart icon */
+}
+
+.custom-toggle-button .p-togglebutton-icon.pi-heart:before {
+  color: #808080; /* Grey color for the outline heart icon */
+}
+
+.custom-toggle-button .p-togglebutton-label {
+  font-weight: bolder !important;
+}
+
   .signup-button {
   background-color: grey; /* Change background to grey */
   border-color: grey; /* Optional: change border to grey if there is one */
@@ -245,13 +308,17 @@ import { getDocs, doc } from "firebase/firestore";
 /* For overriding PrimeVue styles specifically, you might need to target inner elements */
 .signup-button .p-button-label {
   color: #fff; /* This would make the text color white, for example */
+  font-weight: bolder;
 }
 
-/* .signup-button: {
-  background-color: #f0f0f0 !important; /* Very light grey 
-  border-color: #f0f0f0 !important; 
-  
-} */
+.category-tags {
+  margin-top: 10px; /* Add margin to create space between tags and buttons */
+}
+
+.category-tags .p-button-rounded {
+  font-size: small; /* Adjust font size */
+  padding: 6px 10px; /* Adjust padding */
+}
 
   .comments,
   .user-comments {
@@ -272,5 +339,3 @@ import { getDocs, doc } from "firebase/firestore";
     border-radius: 8px;
   }
   </style>
-  
-  ./CommentsForm.vue
