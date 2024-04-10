@@ -1,3 +1,4 @@
+
 <template>
   <div id="app">
     <!-- Include your SearchFilter component here -->
@@ -33,3 +34,4 @@ export default {
   margin-top: 60px;
 }
 </style>
+
