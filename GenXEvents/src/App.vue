@@ -1,26 +1,11 @@
 
 <template>
-  <div id="app">
-    <Test />
-    <!-- Include your SearchFilter component here -->
-  </div>
-</template>
-
-<script>
-
-<template>
   <router-view/>
 </template>
 
-import { ref } from 'vue'; // Import the ref function
-// Import the SearchFilter component
-import Test from './components/test.vue';
-
+<script>
 export default {
-  name: 'App',
-  components: {
-    Test, // Register the SearchFilter component
-  },
+  name: 'App'
 }
 </script>
 
