@@ -1,7 +1,8 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
-import { doc, getFirestore, setDoc, collection } from "firebase/firestore";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, sendPasswordResetEmail } from "firebase/auth";
+import { doc, getFirestore, setDoc, collection, getDocs, query } from "firebase/firestore";
 import ActivitiesData from "./data.js";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -21,11 +22,12 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
+const auth = getAuth(app);
 const db = getFirestore(app);
+const activitiesCollection = collection(db, 'activities');
 
 const addData = async () => {
     try {
-        const activitiesCollection = collection(db, 'activities');
         const data = ActivitiesData;
         
         // Iterate over the data array and add each object as a document
@@ -43,5 +45,5 @@ const addData = async () => {
 
 addData();
 
-const firebaseTools = { db, analytics };
+const firebaseTools = { app, db, analytics, activitiesCollection, auth, createUserWithEmailAndPassword, signInWithEmailAndPassword, sendPasswordResetEmail };
 export default firebaseTools;
