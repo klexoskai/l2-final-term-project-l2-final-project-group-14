@@ -1,0 +1,107 @@
+/* ActivityPage.css */
+
+/* Import component-specific styles */
+@import 'CommentForm.css';
+@import 'CommentsSection.css';
+@import 'FavouriteButton.css';
+@import 'RatingComponent.css';
+
+.activity-page-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  /* font-family: 'Arial', sans-serif; Example font */
+}
+
+.activity-detail-header {
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+.activity-title {
+  font-size: 24px;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.activity-date-time {
+  font-size: 18px;
+  color: #666;
+  margin-bottom: 15px;
+}
+
+.activity-description {
+  font-size: 16px;
+  color: #333;
+  margin-bottom: 15px;
+}
+
+.activity-location {
+  font-size: 16px;
+  color: #333;
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.activity-location-icon {
+  fill: #ffcc00; /* Example fill color for SVG icon */
+  margin-right: 5px;
+}
+
+.activity-rating {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.activity-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.sign-up-button {
+  background-color: grey; /* Green background */
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.sign-up-button:hover {
+  background-color: darkgray; /* Darker green on hover */
+}
+
+/* Below, add additional styles to handle the layout and appearance of other page elements as needed */
+
+/* Ensure your page is responsive */
+@media (max-width: 768px) {
+  .activity-page-container {
+    padding: 10px;
+  }
+
+  .activity-detail-header,
+  .activity-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .sign-up-button,
+  .favourite-button {
+    width: 100%;
+    margin-top: 10px;
+  }
+
+  .activity-rating {
+    flex-direction: column;
+  }
+}
