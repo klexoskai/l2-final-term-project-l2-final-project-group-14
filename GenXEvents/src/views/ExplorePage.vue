@@ -5,7 +5,7 @@
         <div v-for="recommendation in recommendations" :key="recommendation['Activity ID']" class="recommendation-item">
           <Card @click="accessPage(recommendation)" class="custom-card">
             <template #header>
-              <img alt="activity image" :src = 'recommendation.Image'/>
+              <img alt="activity image" :src="getImageUrl(recommendation['Activity ID'])" >
             </template>
             <template #title>
               <h4>{{ recommendation.Type }}</h4>
@@ -46,6 +46,10 @@ export default {
     this.retrieveData(this.tags);
   },
   methods:{
+    getImageUrl(id) {
+      return `../assets/cover_images/img_${id}.jpeg`;
+    },
+
     async retrieveData(tags) {
       const activityCollection = collection(db, 'activities');
       const querySnapshot = await getDocs(activityCollection);  
