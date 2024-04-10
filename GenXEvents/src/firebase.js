@@ -2,7 +2,7 @@
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 import { doc, getFirestore, setDoc, collection } from "firebase/firestore";
-import SampleData from "./data.js";
+import ActivitiesData from "./data.js";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -23,12 +23,10 @@ const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 const db = getFirestore(app);
 
-const addSampleData = async () => {
+const addData = async () => {
     try {
-        const activitiesCollection = collection(db, 'activities'); // Replace 'activities' with your desired collection name
-
-        // Add sample data to test Explore Page
-        const data = SampleData;
+        const activitiesCollection = collection(db, 'activities');
+        const data = ActivitiesData;
         
         // Iterate over the data array and add each object as a document
         for (const activity of data) {
@@ -43,7 +41,7 @@ const addSampleData = async () => {
     }
 };
 
-addSampleData();
+addData();
 
 const firebaseTools = { db, analytics };
 export default firebaseTools;

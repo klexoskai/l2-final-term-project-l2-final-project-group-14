@@ -1,9 +1,12 @@
 <template>
     <div v-if="activity">
         <h1>{{ activity.Type }}</h1>
+        <img alt="activity image" :src = 'activity.Image'/>
+        <p>Upcoming Date: {{ activity.Date }}, {{ activity.Time }}</p>
         <p>{{ activity.Description }}</p>
-        <p>{{ activity.Date }}</p>
-        <p>{{ activity.Time }}</p>
+        <p>Location: {{ activity.Location }}</p>
+        <h4>Other Upcoming Dates</h4>
+        <p>No other upcoming dates.</p>
     </div>
     <div v-else>
         <h1>Activity not found</h1>
@@ -28,7 +31,7 @@ export default {
     methods: {
         async fetchActivity() {
             try {
-                const activityId = this.$route.query.id; // Assuming you have an id parameter
+                const activityId = this.$route.query.id;
                 console.log(activityId);
                 const activitiesCollection = collection(db, 'activities');
                 const docRef = doc(activitiesCollection, activityId);

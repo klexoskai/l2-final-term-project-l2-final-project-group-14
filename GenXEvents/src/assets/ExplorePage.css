@@ -2,14 +2,28 @@
     text-align: left;
     color: black;
     margin-left: 100px;
+    background-color: #ffcc00;
 }
 
-body {
-    background-color: #ffcc00;
+.explore-page {
+  background-color: #ffcc00;
 }
 
 .recommendation-item {
     margin-left: 90px;
+}
+
+.tag {
+  margin-right: 5px;
+  margin-bottom: 5px;
+  border: 1px solid black;
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
 }
 
 .custom-card {
@@ -18,18 +32,24 @@ body {
   padding: 16px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   transition: box-shadow 0.3s ease;
-  width: 25rem;
+  width: 20rem;
   float: left;
   margin: 10px;
   background-color: rgb(253, 247, 247);
   cursor: pointer;
   overflow: hidden;
+  height: 20rem;
 }
 
-.h3 {
-  font-weight: bold;
+h4 {
+  font-weight: 600;
 }
 
 .custom-card:hover {
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
+}
+
+button {
+  margin-right: 10px;
+  border-radius: 10px;
 }

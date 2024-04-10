@@ -1,4 +1,5 @@
 <template>
+  <main class="explore-page">
     <h2 id="Explore">Just For You</h2>
     <div class="recommendation-list">
         <div v-for="recommendation in recommendations" :key="recommendation['Activity ID']" class="recommendation-item">
@@ -7,56 +8,95 @@
               <img alt="activity image" :src = 'recommendation.Image'/>
             </template>
             <template #title>
-              <h3>{{ recommendation.Type }}</h3>
+              <h4>{{ recommendation.Type }}</h4>
             </template>
             <template #content>
-              <p>{{ recommendation.Date }}</p>
-              <p>{{ recommendation.Time }}</p>
-          </template>
+              <p style="font-size: small;">{{ recommendation['Location Estate'] }}</p>
+              <p style="font-size: small;">{{ recommendation.Date }}, {{ recommendation.Time }}</p>
+              <div class="tags">
+                <Tag v-for="tag in recommendation.Tags.split(',')" :key="tag" :value="tag.trim()" class="tag" severity="secondary"></Tag>
+              </div>
+            </template>
           </Card>
         </div>
     </div>
+  </main>
 </template>
 
 <script>
 import Card from 'primevue/card';
+import Tag from 'primevue/tag';
 import firebaseTools from '../firebase.js';
-import { collection, getDocs } from 'firebase/firestore';
+import { collection, getDocs, getDoc, doc } from 'firebase/firestore';
 const db = firebaseTools.db;
 
 export default {
-    components: {
-      Card
-    },
-    data() {
-      return {
-        recommendations: null
-      };
-    },
-    mounted() {
-      this.retrieveData();
-    },
-    methods:{
-      // get data of activites from database
-      async retrieveData() {
-        const activityCollection = collection(db, 'activities');
-        const querySnapshot = await getDocs(activityCollection);
-        this.recommendations = querySnapshot.docs.map(doc => doc.data());
-      },
-      // to access page upon clicking the activity
-      accessPage(recommendation) {
-        console.log("Directed to the activity page");
-        this.$router.push({ 
-          name: 'Activity Page', 
-          query: {
-            id: recommendation["Activity ID"]
-          } 
-        })
+  components: {
+    Card,
+    Tag
+  },
+  data() {
+    return {
+      recommendations: null,
+      tags: ['Nature', 'Cultural']
+      // Tags refers to array of interests that user has indicated
+    };
+  },
+  mounted() {
+    this.retrieveData(this.tags);
+  },
+  methods:{
+    async retrieveData(tags) {
+      const activityCollection = collection(db, 'activities');
+      const querySnapshot = await getDocs(activityCollection);  
+      const filteredActivities = [];
+      const uniqueId = new Array();
+      const recommendationId = new Array();
+
+      for (const tag of tags) {
+        querySnapshot.forEach(doc => {
+            const activity = doc.data();
+            if (!tag || (activity.Tags && activity.Tags.includes(tag))) {
+              if (!uniqueId.includes(activity['Activity ID'])) {
+                uniqueId.push(activity['Activity ID']);
+                // All possible activities with the relevant tags
+              }
+            }
+        });
       }
+
+      while (filteredActivities.length != 6) {
+        const randomIndex = Math.floor(Math.random() * uniqueId.length);
+        const id = uniqueId[randomIndex];
+        const docRef = doc(activityCollection, id);
+        const activityDoc = await getDoc(docRef);
+        const activity = activityDoc.data();
+        if (!recommendationId.includes(activity['Activity ID'])) {
+          filteredActivities.push(activity);
+          recommendationId.push(activity['Activity ID']);
+          // 6 random activity IDs from uniqueId (ensure no duplicates)
+        }
+      }
+      
+      this.recommendations = filteredActivities;
+      console.log(uniqueId);
+      console.log(filteredActivities);
+    },
+
+    // to access page upon clicking the activity
+    accessPage(recommendation) {
+      console.log("Directed to the activity page");
+      this.$router.push({ 
+        name: 'Activity Page', 
+        query: {
+          id: recommendation["Activity ID"]
+        } 
+      })
     }
+  }
 }
 </script>
 
-<style>
+<style scoped>
 @import '../assets/ExplorePage.css';
 </style>
