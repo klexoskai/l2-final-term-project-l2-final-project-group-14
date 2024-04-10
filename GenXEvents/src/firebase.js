@@ -1,10 +1,14 @@
-
+// Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, sendPasswordResetEmail } from "firebase/auth";
 import { getAnalytics } from "firebase/analytics";
-import { getFirestore, collection, doc, setDoc, getDocs, query } from "firebase/firestore";
-import SampleData from "./data.js";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, sendPasswordResetEmail } from "firebase/auth";
+import { doc, getFirestore, setDoc, collection, getDocs, query } from "firebase/firestore";
+import ActivitiesData from "./data.js";
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
 
+// Your web app's Firebase configuration
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
   apiKey: "AIzaSyBf4xPb5ylT0QvgYpTveEcQqqfUH8_uBRc",
   authDomain: "l2---group-14.firebaseapp.com",
@@ -15,20 +19,16 @@ const firebaseConfig = {
   measurementId: "G-LJT4CX2BVT"
 };
 
-
+// Initialize Firebase
 const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);
 const auth = getAuth(app);
 const db = getFirestore(app);
-const analytics = getAnalytics(app);
 const activitiesCollection = collection(db, 'activities');
 
-
-const addSampleData = async () => {
+const addData = async () => {
     try {
-        const activitiesCollection = collection(db, 'activities'); // Replace 'activities' with your desired collection name
-
-        // Add sample data to test Explore Page
-        const data = SampleData;
+        const data = ActivitiesData;
         
         // Iterate over the data array and add each object as a document
         for (const activity of data) {
@@ -43,7 +43,7 @@ const addSampleData = async () => {
     }
 };
 
-addSampleData();
+addData();
 
-export { app as firebaseApp, auth, createUserWithEmailAndPassword, signInWithEmailAndPassword, sendPasswordResetEmail, db, activitiesCollection, analytics };
-
+const firebaseTools = { app, db, analytics, activitiesCollection, auth, createUserWithEmailAndPassword, signInWithEmailAndPassword, sendPasswordResetEmail };
+export default firebaseTools;
