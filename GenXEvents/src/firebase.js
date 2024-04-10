@@ -1,6 +1,9 @@
+
 import { initializeApp } from "firebase/app";
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, sendPasswordResetEmail } from "firebase/auth";
+import { getAnalytics } from "firebase/analytics";
 import { getFirestore, collection, doc, setDoc, getDocs, query } from "firebase/firestore";
+import SampleData from "./data.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyBf4xPb5ylT0QvgYpTveEcQqqfUH8_uBRc",
@@ -16,9 +19,31 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
+const analytics = getAnalytics(app);
 const activitiesCollection = collection(db, 'activities');
 
 
-export { app as firebaseApp, auth, createUserWithEmailAndPassword, signInWithEmailAndPassword, sendPasswordResetEmail, db, activitiesCollection };
+const addSampleData = async () => {
+    try {
+        const activitiesCollection = collection(db, 'activities'); // Replace 'activities' with your desired collection name
 
+        // Add sample data to test Explore Page
+        const data = SampleData;
+        
+        // Iterate over the data array and add each object as a document
+        for (const activity of data) {
+            const activityID = activity["Activity ID"];
+            const docRef = doc(activitiesCollection, activityID);
+            await setDoc(docRef, activity);
+        }
+
+        console.log("Data of activities has been added successfully!");
+    } catch (error) {
+        console.error("Error adding sample data: ", error);
+    }
+};
+
+addSampleData();
+
+export { app as firebaseApp, auth, createUserWithEmailAndPassword, signInWithEmailAndPassword, sendPasswordResetEmail, db, activitiesCollection, analytics };
 
