@@ -1,24 +1,28 @@
 <template>
   <main class="explore-page">
     <h2 id="Explore">Just For You</h2>
+    <div class="recommendation-list-wrapper">
     <div class="recommendation-list">
         <div v-for="recommendation in recommendations" :key="recommendation['Activity ID']" class="recommendation-item">
           <Card @click="accessPage(recommendation)" class="custom-card">
-            <template #header>
-              <img alt="activity image" :src="getImageUrl(recommendation['Activity ID'])" >
-            </template>
             <template #title>
               <h4>{{ recommendation.Type }}</h4>
             </template>
+            <template #header>
+              <div class="image-wrapper">
+                <img class="image" alt="activity image" src='https://mdbcdn.b-cdn.net/img/new/standard/city/041.webp'/>
+              </div>
+            </template>
             <template #content>
-              <p style="font-size: small;">{{ recommendation['Location Estate'] }}</p>
-              <p style="font-size: small;">{{ recommendation.Date }}, {{ recommendation.Time }}</p>
               <div class="tags">
                 <Tag v-for="tag in recommendation.Tags.split(',')" :key="tag" :value="tag.trim()" class="tag" severity="secondary"></Tag>
               </div>
+              <p style="font-size: small;">{{ recommendation['Location Estate'] }}</p>
+              <p style="font-size: small;">{{ recommendation.Date }}, {{ recommendation.Time }}</p>
             </template>
           </Card>
         </div>
+    </div>
     </div>
   </main>
 </template>
@@ -39,7 +43,7 @@ export default {
     return {
       recommendations: null,
       tags: ['Nature', 'Cultural']
-      // Tags refers to array of interests that user has indicated
+      // Need to link with profile page
     };
   },
   mounted() {
@@ -47,7 +51,7 @@ export default {
   },
   methods:{
     getImageUrl(id) {
-      return `../assets/cover_images/img_${id}.jpeg`;
+      return `@/assets/cover_images/img_${id}.jpeg`;
     },
 
     async retrieveData(tags) {
@@ -102,5 +106,5 @@ export default {
 </script>
 
 <style scoped>
-@import '../assets/ExplorePage.css';
+@import '@/assets/ExplorePage.css';
 </style>
