@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import ExplorePage from '@/views/ExplorePage.vue';
 import ActivityPageDraft from '@/views/ActivityPageDraft.vue';
+import SearchFilterPage from '../views/SearchFilterPage.vue';
 
 const routes = [
     {
@@ -35,8 +36,13 @@ const routes = [
 
     {
         path: '/filter-page',
-        name: 'Search and Filter Page'
-        // Search & Filter
+        name: 'Search and Filter Page',
+        component: SearchFilterPage
+    },
+    {
+        path: '/favourites',
+        name: 'Favourites Page'
+        // Favourites Page
     }
 ]
 
@@ -56,4 +62,5 @@ Components that require routes:
 4. Profile Page
 5. Sign in and Register pages
 6. Favourites page
+7. Search and Filter Page
 */
