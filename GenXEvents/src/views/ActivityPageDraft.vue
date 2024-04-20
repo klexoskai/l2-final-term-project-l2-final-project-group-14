@@ -1,7 +1,7 @@
 <template>
     <div v-if="activity">
         <h1>{{ activity.Type }}</h1>
-        <img alt="activity image" :src = 'activity.Image'/>
+        <img style="width: 50%;" alt="activity image" :src = "getImage(this.id)"/>
         <p>Upcoming Date: {{ activity.Date }}, {{ activity.Time }}</p>
         <p>{{ activity.Description }}</p>
         <p>Location: {{ activity.Location }}</p>
@@ -22,7 +22,8 @@ export default {
     name: 'Activity Page',
     data() {
         return {
-            activity: null
+            activity: null,
+            id: null
         }
     },
     mounted() {
@@ -39,12 +40,17 @@ export default {
                 console.log(activityDoc.data());
                 if (activityDoc) {
                     this.activity = activityDoc.data();
+                    this.id = activityId;
                 } else {
                     console.error('Activity not found');
                 }
             } catch (error) {
                 console.error('Error fetching activity:', error);
             }
+        },
+
+        getImage(id) {
+            return `https://nus-392633763.imgix.net/img_${id}.jpeg`;
         }
     }
 }
