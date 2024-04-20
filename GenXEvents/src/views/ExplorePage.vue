@@ -10,7 +10,7 @@
             </template>
             <template #header>
               <div class="image-wrapper">
-                <img class="image" alt="activity image" src='https://mdbcdn.b-cdn.net/img/new/standard/city/041.webp'/>
+                <img class="image" alt="activity image" :src="getImage(recommendation['Activity ID'])"/>
               </div>
             </template>
             <template #content>
@@ -18,7 +18,7 @@
                 <Tag v-for="tag in recommendation.Tags.split(',')" :key="tag" :value="tag.trim()" class="tag" severity="secondary"></Tag>
               </div>
               <p style="font-size: small;">{{ recommendation['Location Estate'] }}</p>
-              <p style="font-size: small;">{{ recommendation.Date }}, {{ recommendation.Time }}</p>
+              <p style="font-size: small;">{{ recommendation.DateTime }}</p>
             </template>
           </Card>
         </div>
@@ -30,7 +30,7 @@
 <script>
 import Card from 'primevue/card';
 import Tag from 'primevue/tag';
-import firebaseTools from '../firebase.js';
+import firebaseTools from '@/firebase';
 import { collection, getDocs, getDoc, doc } from 'firebase/firestore';
 const db = firebaseTools.db;
 
@@ -42,7 +42,7 @@ export default {
   data() {
     return {
       recommendations: null,
-      tags: ['Nature', 'Cultural']
+      tags: ['Entertainment', 'Workshop']
       // Need to link with profile page
     };
   },
@@ -50,8 +50,8 @@ export default {
     this.retrieveData(this.tags);
   },
   methods:{
-    getImageUrl(id) {
-      return `@/assets/cover_images/img_${id}.jpeg`;
+    getImage(id) {
+      return `https://nus-392633763.imgix.net/img_${id}.jpeg`;
     },
 
     async retrieveData(tags) {
@@ -64,7 +64,7 @@ export default {
       for (const tag of tags) {
         querySnapshot.forEach(doc => {
             const activity = doc.data();
-            if (!tag || (activity.Tags && activity.Tags.includes(tag))) {
+            if (activity.Tags && activity.Tags.includes(tag)) {
               if (!uniqueId.includes(activity['Activity ID'])) {
                 uniqueId.push(activity['Activity ID']);
                 // All possible activities with the relevant tags
