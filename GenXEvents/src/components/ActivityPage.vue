@@ -77,9 +77,13 @@ import CommentsForm from './CommentsForm.vue';
 import CommentsSection from './CommentsSection.vue';
 import FavouriteButton from './FavouriteButton.vue';
 import ToggleButton from 'primevue/togglebutton';
-import { activitiesCollection } from '../firebase';
-import { db } from '../firebase'; 
-import { getDoc, doc } from "firebase/firestore";
+import Footer from '@/components/Footer.vue';
+import NavBar from '@/components/NavBar.vue';
+import firebaseTools from '../firebase.js';
+import { getDoc, doc, collection } from "firebase/firestore";
+const { activitiesCollection } = firebaseTools.activitiesCollection;
+// import { activitiesCollection } from '../firebase'; // Import activitiesCollection from Firebase config file
+
 
 
   

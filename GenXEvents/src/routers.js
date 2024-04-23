@@ -1,6 +1,10 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import ExplorePage from '@/views/ExplorePage.vue';
-import ActivityPageDraft from '@/views/ActivityPageDraft.vue';
+import ActivityPage from '@/views/ActivityPage.vue';
+import SearchFilterPage from '../views/SearchFilterPage.vue';
+import SignUp from '@/views/SignUp.vue';
+import SignIn from '@/views/SignIn.vue';
+import Profile from '@/components/Profile.vue';
 
 const routes = [
     {
@@ -22,21 +26,32 @@ const routes = [
     },
 
     {
-        path: '/register-page',
-        name: 'Register Page'
-        // Register Page
+        path: '/sign-up',
+        name: 'Sign Up',
+        component: SignUp
     },
 
     {
-        path: '/login-page',
-        name: 'Login Page'
-        // Login Page
+        path: '/sign-in',
+        name: 'Login Page',
+        component: SignIn
     },
 
     {
         path: '/filter-page',
-        name: 'Search and Filter Page'
-        // Search & Filter
+        name: 'Search and Filter Page',
+        component: SearchFilterPage
+    },
+    {
+        path: '/favourites',
+        name: 'Favourites Page'
+        // Favourites Page
+    },
+
+    {
+        path: '/profile',
+        name: 'Profile Page',
+        component: Profile
     }
 ]
 
