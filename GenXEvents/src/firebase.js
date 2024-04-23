@@ -1,7 +1,13 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, sendPasswordResetEmail } from "firebase/auth";
+import {
+    getAuth,
+    createUserWithEmailAndPassword,
+    signInWithEmailAndPassword,
+    sendPasswordResetEmail,
+    onAuthStateChanged
+} from "firebase/auth";
 import { doc, getFirestore, setDoc, collection, getDocs, query } from "firebase/firestore";
 import ActivitiesData from "./data.js";
 
@@ -23,28 +29,30 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
-const auth = getAuth(app);
+const firebaseAuth = getAuth(app);
 const db = getFirestore(app);
 const activitiesCollection = collection(db, 'activities');
 
-const addData = async () => {
-    try {
-        const data = ActivitiesData;
+// const addData = async () => {
+//     try {
+//         const data = ActivitiesData;
         
-        // Iterate over the data array and add each object as a document
-        for (const activity of data) {
-            const activityID = activity["Activity ID"];
-            const docRef = doc(activitiesCollection, activityID);
-            await setDoc(docRef, activity);
-        }
+//         // Iterate over the data array and add each object as a document
+//         for (const activity of data) {
+//             const activityID = activity["Activity ID"];
+//             const docRef = doc(activitiesCollection, activityID);
+//             await setDoc(docRef, activity);
+//         }
 
-        console.log("Data of activities has been added successfully!");
-    } catch (error) {
-        console.error("Error adding sample data: ", error);
-    }
-};
+//         console.log("Data of activities has been added successfully!");
+//     } catch (error) {
+//         console.error("Error adding sample data: ", error);
+//     }
+// };
 
-addData();
+// addData();
 
-const firebaseTools = { app, db, analytics, activitiesCollection, auth, createUserWithEmailAndPassword, signInWithEmailAndPassword, sendPasswordResetEmail };
+const firebaseTools = { app, db, analytics, activitiesCollection, firebaseAuth, 
+    createUserWithEmailAndPassword, signInWithEmailAndPassword, sendPasswordResetEmail,
+    onAuthStateChanged };
 export default firebaseTools;
