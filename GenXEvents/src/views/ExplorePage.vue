@@ -1,4 +1,4 @@
-<template>
+<!-- <template>
   <main class="explore-page">
     <h2 id="Explore">Just For You</h2>
     <div class="recommendation-list-wrapper">
@@ -107,4 +107,4 @@ export default {
 
 <style scoped>
 @import '@/assets/ExplorePage.css';
-</style>
+</style> -->
