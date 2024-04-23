@@ -1,5 +1,8 @@
 <template>
-    
+
+<div class = "NavBar">
+          <NavBar />
+        </div>
         <div class= "content-wrapper">
             <div class="activity-details">
             <div class="left-column">
@@ -33,20 +36,21 @@
             </div>
 
             <div class="right-column">
-                <div class="actions">
-                  <ToggleButton
-                    v-model="isFavorite"
-                    on-icon="pi pi-heart-fill"
-                    off-icon="pi pi-heart"
-                    on-label="Remove from Favorite"
-                    off-label="Add to Favorite"
-                    on-change="handleToggle"
-                    class="custom-toggle-button"
-                    
-                  />
+                  <div class="fav">
+                    <ToggleButton
+                      v-model="isFavorite"
+                      on-icon="pi pi-heart-fill"
+                      off-icon="pi pi-heart"
+                      on-label="Remove from Favorite"
+                      off-label="Add to Favorite"
+                      @change="handleToggle"
+                     
+                    />
+                  </div>
+                  <div class="signup">
                     <!-- <Button label="Add to Favourite" icon="pi pi-heart" class="p-button-warning"></Button> -->
                     <Button label="Go to Sign up Page" class="p-button-success signup-button"></Button>
-                </div>
+                  </div>
 
                 <div class="category-tags">
                   <Button v-for="(tag, index) in tags" :key="index" :label="tag" class="p-button-rounded p-button-outlined" disabled></Button>
@@ -64,8 +68,14 @@
                     <CommentsSection />
                 </div>
             </div>
+          </div>
         </div>
-    </div>
+        <div class = "Footer">
+          <Footer />
+        </div>
+      
+    
+    
   </template>
   
   <script>
@@ -73,16 +83,14 @@
   import Rating from 'primevue/rating';
 import Button from 'primevue/button';
 import Textarea from 'primevue/textarea';
-import CommentsForm from './CommentsForm.vue';
-import CommentsSection from './CommentsSection.vue';
-import FavouriteButton from './FavouriteButton.vue';
+import CommentsForm from '../components/CommentsForm.vue';
+import CommentsSection from '../components/CommentsSection.vue';
 import ToggleButton from 'primevue/togglebutton';
 import Footer from '@/components/Footer.vue';
 import NavBar from '@/components/NavBar.vue';
 import firebaseTools from '../firebase.js';
 import { getDoc, doc, collection } from "firebase/firestore";
-const { activitiesCollection } = firebaseTools.activitiesCollection;
-// import { activitiesCollection } from '../firebase'; // Import activitiesCollection from Firebase config file
+import { activitiesCollection } from '../firebase'; // Import activitiesCollection from Firebase config file
 
 
 
@@ -96,8 +104,9 @@ const { activitiesCollection } = firebaseTools.activitiesCollection;
       Textarea,
       CommentsForm,
       CommentsSection,
-      FavouriteButton,
-      ToggleButton
+      ToggleButton,
+      Footer,
+      NavBar
     },
     setup() {
       
@@ -159,6 +168,7 @@ const handleToggle = () => {
       }
     };
 
+
 onMounted(() => {
   const selectedDocumentId = '4';
   fetchDataFromFirestore(selectedDocumentId);
@@ -201,6 +211,8 @@ onMounted(() => {
   /* max-width:300px;
   padding: 1em; */
   margin-right: auto;
+  display: flex;
+  flex-direction: column;
 }
   .activity-details {
     font-family: 'Arial', sans-serif;
@@ -284,35 +296,42 @@ onMounted(() => {
     color:#ff9900;
   }
 
-.p-button {
-  font-weight: bolder !important;
-}
-.p-togglebutton.p-component.custom-toggle-button {
-  color: #f59e0b;
-}
 
-.custom-toggle-button .p-togglebutton-icon.pi-heart-fill:before {
-  color: #FF6347; /* Red color for the filled heart icon */
-}
 
-.custom-toggle-button .p-togglebutton-icon.pi-heart:before {
-  color: #808080; /* Grey color for the outline heart icon */
-}
-
-.custom-toggle-button .p-togglebutton-label {
-  font-weight: bolder !important;
-}
-
-  .signup-button {
-  background-color: grey; /* Change background to grey */
-  border-color: grey; /* Optional: change border to grey if there is one */
+  /* .signup-button {
+  background-color: grey; 
+  border-color: grey; 
   box-shadow: lightgrey;
+} */
+
+.fav,
+.signup {
+  flex-grow: 1; /* Grow to fill available space */
 }
 
+.p-togglebutton .p-button {
+  background-color: aquamarine;
+}
+.p-togglebutton .p-button .p-button-label, .p-togglebutton .p-button .p-button-icon {
+    position: relative;
+    font-weight: bold;
+    color: pink;
+    transition: none;
+}
+
+.p-togglebutton:not(.p-disabled):has(.p-togglebutton-input:hover):not(.p-highlight) .p-button {
+  color: pink;
+  background-color: aquamarine;
+}
+
+.custom-toggle-button,
+.signup-button {
+  flex: 1; /* Occupy available horizontal space */
+}
 /* For overriding PrimeVue styles specifically, you might need to target inner elements */
-.signup-button .p-button-label {
+.p-button-label {
   color: #fff; /* This would make the text color white, for example */
-  font-weight: bolder;
+  font-weight: bold !important;
 }
 
 .category-tags {

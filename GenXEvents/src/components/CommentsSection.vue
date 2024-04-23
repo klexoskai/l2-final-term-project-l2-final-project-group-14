@@ -22,10 +22,14 @@
 import { ref } from 'vue';
 import Rating from 'primevue/rating';
 import Avatar from 'primevue/avatar';
+<<<<<<< HEAD
 import firebaseTools from '../firebase.js';
 import { getDoc, doc, collection } from "firebase/firestore";
 const { activitiesCollection } = firebaseTools.activitiesCollection;
 // import { app, db, analytics, auth, createUserWithEmailAndPassword, signInWithEmailAndPassword, sendPasswordResetEmail, activitiesCollection } from '../firebase';
+=======
+import { app, db, analytics, auth, createUserWithEmailAndPassword, signInWithEmailAndPassword, sendPasswordResetEmail, activitiesCollection } from '../firebase';
+>>>>>>> main
 
 
 export default {
@@ -50,6 +54,34 @@ export default {
       }
       // ... more comments
     ]);
+    //     // Fetch comments from Firebase based on activity ID
+    //   const fetchComments = async (activityID) => {
+    //   try {
+    //     // Replace 'ratings' with your actual collection name
+    //     const ratingsRef = RatingsCollection.doc(activityID);
+    //     const doc = await ratingsRef.get();
+    //     if (doc.exists) {
+    //       const data = doc.data();
+    //       // Map ratings and comments to the expected format
+    //       const fetchedComments = Object.keys(data.comments).map(userId => ({
+    //         // avatar: '', // Provide user avatar
+    //         rating: data.ratings[userId],
+    //         message: data.comments[userId]
+    //       }));
+    //       comments.value = fetchedComments;
+    //     } else {
+    //       console.log('No ratings found for activity ID:', activityID);
+    //     }
+    //   } catch (error) {
+    //     console.error('Error fetching comments:', error);
+    //   }
+    // };
+
+    // // Fetch comments when component is mounted
+    // onMounted(() => {
+    //   const activityID = '2'; // Replace with actual activity ID passed from ActivityPage.vue
+    //   fetchComments(activityID);
+    // });
 
     return {
       comments
