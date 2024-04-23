@@ -1,4 +1,5 @@
 <template>
+  <main class="explore-page">
     <h2 id="Explore">Just For You</h2>
     <div class="recommendation-list">
         <div v-for="recommendation in recommendations" :key="recommendation['Activity ID']" class="recommendation-item">
@@ -57,6 +58,6 @@ export default {
 }
 </script>
 
-<style>
-@import '../assets/ExplorePage.css';
+<style scoped>
+@import '@/assets/ExplorePage.css';
 </style>
