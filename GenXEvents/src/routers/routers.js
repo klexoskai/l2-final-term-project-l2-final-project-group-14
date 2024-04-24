@@ -1,14 +1,15 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import ExplorePage from '@/views/ExplorePage.vue';
-import ActivityPageDraft from '@/views/ActivityPageDraft.vue';
 import SearchFilterPage from '../views/SearchFilterPage.vue';
 import SignIn from '@/views/SignIn.vue';
+import ActivityPage from '@/views/ActivityPage.vue';
+import SignUp from '@/views/SignUp.vue';
 
 const routes = [
     {
-        path: '/',
+        path: '/explore',
         name: 'Explore Page',
-        component: ActivityPage
+        component: ExplorePage
     },
 
     {
@@ -26,13 +27,13 @@ const routes = [
     },
 
     {
-        path: '/register-page',
-        name: 'Register Page'
-        // Register Page
+        path: '/sign-up',
+        name: 'Sign Up',
+        components: SignUp
     },
 
     {
-        path: '/login-page',
+        path: '/',
         name: 'Login Page',
         component: SignIn
     },

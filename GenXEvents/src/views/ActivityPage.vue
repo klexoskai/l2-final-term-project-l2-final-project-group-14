@@ -90,7 +90,7 @@ import Footer from '@/components/Footer.vue';
 import NavBar from '@/components/NavBar.vue';
 import firebaseTools from '../firebase.js';
 import { getDoc, doc, collection } from "firebase/firestore";
-import { activitiesCollection } from '../firebase'; // Import activitiesCollection from Firebase config file
+const { activitiesCollection } = firebaseTools.activitiesCollection;
 
 
 
