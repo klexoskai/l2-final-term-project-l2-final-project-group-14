@@ -32,6 +32,43 @@ export default {
     Button
   },
 
+  export default {
+    data() {
+      return {
+        email: "",
+        password: "",
+        isWelcomeVisible: false,
+        isErrorVisible: false
+      };
+    },
+    methods: {
+      async signIn() {
+        const email = this.email;
+        const password = this.password;
+  
+        try {
+          // Sign in user with email and password
+          await firebaseTools.signInWithEmailAndPassword(auth, email, password);
+  
+          // Signin successful, display welcome message
+          this.isWelcomeVisible = true;
+          this.isErrorVisible = false;
+          console.log("User signed in:", auth.currentUser.uid);
+
+          firebaseTools.onAuthStateChanged(auth, (user) => {
+            if (user) {
+              this.$router.push({ name: 'Explore Page'})
+            }
+          })
+        } catch (error) {
+          // Handle errors
+          this.isWelcomeVisible = false;
+          this.isErrorVisible = true;
+          console.error(error);
+        }
+      },
+      refreshPage() {
+        location.reload(); // Refresh the page
   setup() {
     const router = useRouter();
     const email = ref('');

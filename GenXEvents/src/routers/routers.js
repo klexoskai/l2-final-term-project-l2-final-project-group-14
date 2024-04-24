@@ -2,12 +2,18 @@ import { createRouter, createWebHistory } from 'vue-router';
 import ExplorePage from '@/views/ExplorePage.vue';
 
 import SearchFilterPage from '../views/SearchFilterPage.vue';
-import ActivityPage from '../views/ActivityPage.vue';
-import SignUp from '../views/SignUp.vue';
-import SignIn from '../views/SignIn.vue';
-import ProfilePage from '../views/ProfilePage.vue';
+import SignIn from '@/views/SignIn.vue';
+import ActivityPage from '@/views/ActivityPage.vue';
+import SignUp from '@/views/SignUp.vue';
+import ActivityPageDraft from '@/views/ActivityPageDraft.vue'
 
 const routes = [
+    {
+        path: '/',
+        name: 'Explore Page',
+        component: SignUp
+    },
+
     {
         path: '/explore',
         name: 'Explore Page',
@@ -17,7 +23,7 @@ const routes = [
     {
         path: '/activity-page',
         name: 'Activity Page',
-        component: ActivityPage
+        component: ActivityPageDraft
     },
 
 
@@ -35,7 +41,7 @@ const routes = [
     },
 
     {
-        path: '/',
+        path: '/login',
         name: 'Login Page',
         component: SignIn
     },
