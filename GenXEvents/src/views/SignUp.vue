@@ -63,7 +63,9 @@ export default {
     const password = ref('');
     const birthYear = ref(null);
     const selectedHobbies = ref([]);
-    const hobbyOptions = ['Nature', 'Guided Tour', 'Cooking', 'Cultural', 'Fitness', 'Wellness', 'Art', 'Workshop', 'History', 'Wildlife', 'Entertainment', 'Social', 'Sightseeing', 'Dance', 'Food', 'Music', 'Water Sports', 'Culture'];
+    const hobbyOptions = ['Nature', 'Guided Tour', 'Cooking', 'Cultural', 'Fitness', 'Wellness', 
+    'Art', 'Workshop', 'History', 'Wildlife', 'Entertainment', 'Social', 'Sightseeing', 'Dance', 
+    'Food', 'Music', 'Water Sports', 'Culture'];
 
     const currentYear = new Date().getFullYear();
     const yearOptions = computed(() => {

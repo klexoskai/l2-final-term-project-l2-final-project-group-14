@@ -22,7 +22,8 @@
 import { ref } from 'vue';
 import Rating from 'primevue/rating';
 import Avatar from 'primevue/avatar';
-import firebaseTools from '../firebase.js';
+
+import firebaseTools from '@/firebase.js';
 import { getDoc, doc, collection } from "firebase/firestore";
 const { activitiesCollection } = firebaseTools.activitiesCollection;
 // import { app, db, analytics, auth, createUserWithEmailAndPassword, signInWithEmailAndPassword, sendPasswordResetEmail, activitiesCollection } from '../firebase';

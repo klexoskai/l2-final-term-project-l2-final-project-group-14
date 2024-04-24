@@ -88,9 +88,10 @@ import CommentsSection from '../components/CommentsSection.vue';
 import ToggleButton from 'primevue/togglebutton';
 import Footer from '@/components/Footer.vue';
 import NavBar from '@/components/NavBar.vue';
-import firebaseTools from '../firebase.js';
+import firebaseTools from '@/firebase.js';
 import { getDoc, doc, collection } from "firebase/firestore";
-const { activitiesCollection } = firebaseTools.activitiesCollection;
+const activitiesCollection = firebaseTools.activitiesCollection;
+
 
 
 
