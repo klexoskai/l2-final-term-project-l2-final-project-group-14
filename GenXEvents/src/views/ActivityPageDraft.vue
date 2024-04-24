@@ -1,35 +1,33 @@
 <template>
 
     <div class = "NavBar">
-              <NavBar />
             </div>
-            <div class= "content-wrapper">
+            <div class= "content-wrapper" v-if="this.activity">
                 <div class="activity-details">
                 <div class="left-column">
                     <div class="header">
-                        <h2>{{ activity.Type }}</h2>
+                        <h2>{{ this.activity.Type }}</h2>
                         <div class="rating">
-                            <p>Rating: {{ activity.Rating }}</p>
+                            <p>Rating: {{ this.activity.Rating }}</p>
                         </div>
                     </div>
       
                     <div class="session-details">
-                        <p>Upcoming Date: {{ activity.Date }}, {{ activity.Day }}</p>
-                        <p>Time: {{ activity.Time }}</p>
+                        <p>Upcoming Date and Time: {{ this.activity.DateTime }}</p>
                         <div class="activity-images">
                             <!-- <img :src="activityImageUrl" alt="Activity Image1" /> -->
-                            <img src="@/assets/sample-activity-img.jpg" alt="Activity Image" />
+                            <img :src="getImage(this.activity['Activity ID'])" alt="Activity Image" />
                         </div>
-                            <p>{{ activity.Description }}</p>
-                            <p> Cost: ${{ activity.Cost }}</p>
+                            <p>{{ this.activity.Description }}</p>
+                            <p> Cost: ${{ this.activity.Cost }}</p>
                             <div class="location">
                                 <i class="pi pi-map-marker"></i>
-                                <p>Location: {{ activity.Location }}, {{ activity['Location Estate'] }}</p>
+                                <p>Location: {{ this.activity.Location }}, {{ this.activity['Location Estate'] }}</p>
                             </div>
     
                             <div class="other-dates">
                                 <h3>Other Upcoming Dates</h3>
-                                <p v-for="(date, index) in activity['otherDates'] || []" :key="index">{{ date }}</p>
+                                <p v-for="(date, index) in this.activity['otherDates'] || []" :key="index">{{ date }}</p>
                             </div>
                         </div>
                     </div>
@@ -89,7 +87,8 @@ import CommentsForm from '../components/CommentsForm.vue';
 import CommentsSection from '../components/CommentsSection.vue';
 import ToggleButton from 'primevue/togglebutton';
 import Footer from '@/components/Footer.vue';
-import NavBar from '@/components/NavBar.vue';
+// import NavBar from '@/components/NavBar.vue';
+const activitiesCollection = collection(db, 'activities');
 
 export default {
     name: 'Activity Page',
@@ -100,8 +99,7 @@ export default {
       CommentsForm,
       CommentsSection,
       ToggleButton,
-      Footer,
-      NavBar
+      Footer
     },
     data() {
         return {
@@ -111,20 +109,18 @@ export default {
     },
     mounted() {
         this.fetchActivity();
-        console.log(activity);
+        console.log(this.activity);
     },
     methods: {
         async fetchActivity() {
             try {
                 const activityId = this.$route.query.id;
                 console.log(activityId);
-                const activitiesCollection = collection(db, 'activities');
                 const docRef = doc(activitiesCollection, activityId);
                 const activityDoc = await getDoc(docRef);
                 console.log(activityDoc.data());
-                if (activityDoc) {
-                    const data = activityDoc.data();
-                    this.activity = data;
+                if (activityDoc.data()) {
+                    this.activity = activityDoc.data();
                     this.id = activityId;
                 } else {
                     console.error('Activity not found');
