@@ -58,7 +58,6 @@ export default {
   },
 
   setup() {
-    const router = useRouter();
     const username = ref('');
     const email = ref('');
     const password = ref('');
@@ -91,7 +90,7 @@ export default {
         });
 
         console.log("User data stored successfully.");
-        router.push('/home'); // Redirect to home page after successful signup
+        this.$router.push({path: '/home'}); // Redirect to home page after successful signup
       } catch (error) {
         console.error("Signup failed:", error);
         alert(error.message);

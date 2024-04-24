@@ -91,7 +91,7 @@ import NavBar from '@/components/NavBar.vue';
 import firebaseTools from '@/firebase.js';
 import { getDoc, doc, collection } from "firebase/firestore";
 const activitiesCollection = firebaseTools.activitiesCollection;
-// import { activitiesCollection } from '../firebase'; // Import activitiesCollection from Firebase config file
+
 
 
 
