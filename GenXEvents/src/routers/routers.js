@@ -1,9 +1,11 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import ExplorePage from '@/views/ExplorePage.vue';
+
 import SearchFilterPage from '../views/SearchFilterPage.vue';
-import SignIn from '@/views/SignIn.vue';
-import ActivityPage from '@/views/ActivityPage.vue';
-import SignUp from '@/views/SignUp.vue';
+import ActivityPage from '../views/ActivityPage.vue';
+import SignUp from '../views/SignUp.vue';
+import SignIn from '../views/SignIn.vue';
+import ProfilePage from '../views/ProfilePage.vue';
 
 const routes = [
     {
@@ -28,8 +30,8 @@ const routes = [
 
     {
         path: '/sign-up',
-        name: 'Sign Up',
-        components: SignUp
+        name: 'Sign Up Page',
+        component: SignUp
     },
 
     {
