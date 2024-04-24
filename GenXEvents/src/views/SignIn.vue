@@ -78,6 +78,12 @@
           this.isWelcomeVisible = true;
           this.isErrorVisible = false;
           console.log("User signed in:", auth.currentUser.uid);
+
+          firebaseTools.onAuthStateChanged(auth, (user) => {
+            if (user) {
+              this.$router.push({ name: 'Explore Page'})
+            }
+          })
         } catch (error) {
           // Handle errors
           this.isWelcomeVisible = false;

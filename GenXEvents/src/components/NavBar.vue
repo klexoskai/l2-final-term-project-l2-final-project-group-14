@@ -15,12 +15,9 @@
 </template>
 
 <script>
-import { onAuthStateChanged, signOut } from 'firebase/auth';
 import Button from 'primevue/button';
-
-
-// import tools from '@/firebase'; // ask Ee Sean why need this
-// const auth = tools.auth;
+import firebaseTools from '@/firebase';
+const auth = firebaseTools.auth;
 
 
 export default {
@@ -31,7 +28,7 @@ export default {
         }
     },
     mounted() {
-        onAuthStateChanged(this.auth, (user) => {
+        onAuthStateChanged(auth, (user) => {
             if (user) {
                 this.loggedIn = true;
             }
@@ -52,7 +49,7 @@ export default {
             this.$router.push('/search');
         },
         goToSignup() {
-            this.$router.push('/signup');
+            this.$router.push('/sign-up');
         },
         goToLogin() {
             this.$router.push('/login');
