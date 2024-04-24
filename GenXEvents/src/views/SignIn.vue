@@ -32,7 +32,6 @@ export default {
     Button
   },
 
-  export default {
     data() {
       return {
         email: "",
@@ -69,6 +68,8 @@ export default {
       },
       refreshPage() {
         location.reload(); // Refresh the page
+      }
+    },
   setup() {
     const router = useRouter();
     const email = ref('');
@@ -95,7 +96,7 @@ export default {
       errorMessage
     };
   }
-};
+}
 </script>
 
 <style scoped>

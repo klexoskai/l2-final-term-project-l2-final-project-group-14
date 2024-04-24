@@ -5,7 +5,6 @@ import SearchFilterPage from '../views/SearchFilterPage.vue';
 import SignIn from '@/views/SignIn.vue';
 import ActivityPage from '@/views/ActivityPage.vue';
 import SignUp from '@/views/SignUp.vue';
-import ActivityPageDraft from '@/views/ActivityPageDraft.vue'
 
 const routes = [
     {
@@ -23,7 +22,7 @@ const routes = [
     {
         path: '/activity-page',
         name: 'Activity Page',
-        component: ActivityPageDraft
+        component: ActivityPage
     },
 
 
