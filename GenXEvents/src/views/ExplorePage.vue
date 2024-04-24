@@ -31,8 +31,11 @@
 import Card from 'primevue/card';
 import Tag from 'primevue/tag';
 import firebaseTools from '@/firebase';
-import { collection, getDocs, getDoc, doc } from 'firebase/firestore';
+import { collection, getDocs, getDoc, doc, query, where } from 'firebase/firestore';
 const db = firebaseTools.db;
+const activityCollection = collection(db, 'activities');
+const users = collection(db, 'users');
+
 
 export default {
   components: {
@@ -42,20 +45,34 @@ export default {
   data() {
     return {
       recommendations: null,
-      tags: ['Entertainment', 'Workshop']
+      tags: null
       // Need to link with profile page
     };
   },
   mounted() {
-    this.retrieveData(this.tags);
+    this.loadData();
   },
   methods:{
+    async loadData() {
+      await this.getHobbies();
+      this.retrieveData(this.tags);
+    },
+
+    async getHobbies() {
+      const q = query(users, where('username', '==', 'username10')) // using sample data
+      const querySnapshot = await getDocs(q);
+      querySnapshot.forEach(doc => {
+        const userData = doc.data();
+        this.tags = userData.hobbies;
+        console.log(userData.hobbies);
+      })
+    },
+
     getImage(id) {
       return `https://nus-392633763.imgix.net/img_${id}.jpeg`;
     },
 
     async retrieveData(tags) {
-      const activityCollection = collection(db, 'activities');
       const querySnapshot = await getDocs(activityCollection);  
       const filteredActivities = [];
       const uniqueId = new Array();

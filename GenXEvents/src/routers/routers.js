@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router';
 import ExplorePage from '@/views/ExplorePage.vue';
 import ActivityPageDraft from '@/views/ActivityPageDraft.vue';
 import SearchFilterPage from '../views/SearchFilterPage.vue';
+import SignIn from '@/views/SignIn.vue';
 
 const routes = [
     {
@@ -30,8 +31,8 @@ const routes = [
 
     {
         path: '/login-page',
-        name: 'Login Page'
-        // Login Page
+        name: 'Login Page',
+        component: SignIn
     },
 
     {

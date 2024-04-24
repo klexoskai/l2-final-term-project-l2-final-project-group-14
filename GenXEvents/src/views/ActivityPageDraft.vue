@@ -2,7 +2,7 @@
     <div v-if="activity">
         <h1>{{ activity.Type }}</h1>
         <img style="width: 50%;" alt="activity image" :src = "getImage(this.id)"/>
-        <p>Upcoming Date: {{ activity.Date }}, {{ activity.Time }}</p>
+        <p>Upcoming Date: {{ activity.DateTime }}</p>
         <p>{{ activity.Description }}</p>
         <p>Location: {{ activity.Location }}</p>
         <h4>Other Upcoming Dates</h4>
