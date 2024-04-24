@@ -1,6 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import ExplorePage from '@/views/ExplorePage.vue';
-
 import SearchFilterPage from '../views/SearchFilterPage.vue';
 import SignIn from '@/views/SignIn.vue';
 import ActivityPage from '@/views/ActivityPage.vue';
@@ -10,13 +9,7 @@ const routes = [
     {
         path: '/',
         name: 'Explore Page',
-        component: SignUp
-    },
-
-    {
-        path: '/explore',
-        name: 'Explore Page',
-        //component: SearchFilterPage
+        component: ExplorePage
     },
 
     {
@@ -42,13 +35,13 @@ const routes = [
     {
         path: '/login',
         name: 'Login Page',
-        component: SearchFilterPage
+        component: SignIn
     },
 
     {
         path: '/filter-page',
         name: 'Search and Filter Page',
-        component: ExplorePage
+        component: SearchFilterPage
     },
     {
         path: '/favourites',
