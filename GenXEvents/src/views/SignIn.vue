@@ -52,11 +52,9 @@
   </template>
   
   <script>
-  import { ref } from 'vue';
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-app.js";
-  import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword} from "https://www.gstatic.com/firebasejs/10.9.0/firebase-auth.js";
-  import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-firestore.js";
-  import { firebaseApp, firebaseAuth, firestore } from './firebase';
+  import firebaseTools from '@/firebase';
+  const auth = firebaseTools.auth;
+
 
   export default {
     data() {
@@ -74,12 +72,12 @@
   
         try {
           // Sign in user with email and password
-          await signInWithEmailAndPassword(getAuth(), email, password);
+          await firebaseTools.signInWithEmailAndPassword(auth, email, password);
   
           // Signin successful, display welcome message
           this.isWelcomeVisible = true;
           this.isErrorVisible = false;
-          console.log("User signed in:", getAuth().currentUser.uid);
+          console.log("User signed in:", auth.currentUser.uid);
         } catch (error) {
           // Handle errors
           this.isWelcomeVisible = false;
