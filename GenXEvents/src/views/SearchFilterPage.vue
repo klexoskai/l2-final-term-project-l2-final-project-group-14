@@ -13,7 +13,7 @@
         </div>
         
       </div>
-      <v-container>
+      <Container>
         <div class="row">
           <div class="col-md-3 col-sm-3 col-xs-12">
             <Card>
@@ -32,14 +32,6 @@
             </Card>
           </div>
           <div class="col-md-9 col-sm-9 col-xs-12">
-            <v-row dense>
-              <v-col cols="12" sm="8" class="pl-6 pt-6">
-                <small>Showing 1-12 of 200 products</small>
-              </v-col>
-              <v-col cols="12" sm="4">
-                <v-select class="pa-0" v-model="select" :items="options" style="margin-bottom: -20px;" outlined dense></v-select>
-              </v-col>
-            </v-row>
   
             <Divider />
   
@@ -52,14 +44,14 @@
                     max-width="600"
 
                     @click="accessPage(activity)"
-                    style="width: 100%; max-width: 300px; height: 300px; margin-bottom: 10px; margin-top: 10px;"
+                    style="width: 100%; max-width: 300px; height: 450px; margin-bottom: 10px; margin-top: 10px;"
                   >
-                    <!-- <template #header>
+                    <template #header>
                       <img class="w-100"
                       alt="activity image"
-                      :src= "activity.Image" />
-                    </template> -->
-
+                      :src= "activity.ImageHostLink" />
+                    </template>
+                    
                     <template #title>{{activity.Type}} </template>
                     <template #subtitle>{{activity['Location']}} </template>
                     <template #content>
@@ -74,15 +66,9 @@
 
               </div>
             </div>
-            <div class="text-center mt-12">
-              <v-pagination
-                v-model="page"
-                :length="6"
-              ></v-pagination>
-            </div>
           </div>
         </div>
-      </v-container>
+      </Container>
     </div>
 </template>
   
