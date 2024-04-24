@@ -49,7 +49,7 @@
                     <template #header>
                       <img class="w-100"
                       alt="activity image"
-                      :src= "activity.ImageHostLink" />
+                      :src="getImage(activity['Activity ID'])" />
                     </template>
                     
                     <template #title>{{activity.Type}} </template>
@@ -112,6 +112,10 @@
           console.error('Error fetching data:', error);
           // Handle the error, e.g., show a message to the user or retry fetching data
         }
+      },
+
+      getImage(id) {
+        return `https://nus-392633763.imgix.net/img_${id}.jpeg`;
       },
 
 
