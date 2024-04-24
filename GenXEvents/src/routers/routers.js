@@ -17,7 +17,7 @@ const routes = [
     {
         path: '/explore',
         name: 'Explore Page',
-        component: ExplorePage
+        //component: SearchFilterPage
     },
 
     {
@@ -43,13 +43,13 @@ const routes = [
     {
         path: '/login',
         name: 'Login Page',
-        component: SignIn
+        component: SearchFilterPage
     },
 
     {
         path: '/filter-page',
         name: 'Search and Filter Page',
-        component: SearchFilterPage
+        component: ExplorePage
     },
     {
         path: '/favourites',
