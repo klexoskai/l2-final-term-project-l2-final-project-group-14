@@ -8,14 +8,16 @@ const routes = [
     {
         path: '/',
         name: 'Explore Page',
-        component: ExplorePage
+        component: ActivityPage
     },
 
     {
         path: '/activity-page',
         name: 'Activity Page',
-        component: ActivityPageDraft
+        component: ActivityPage
     },
+
+
 
     {
         path: '/landing-page',
