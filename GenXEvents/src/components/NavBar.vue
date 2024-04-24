@@ -52,7 +52,7 @@ export default {
             this.$router.push('/search');
         },
         goToSignup() {
-            this.$router.push('/signup');
+            this.$router.push('/sign-up');
         },
         goToLogin() {
             this.$router.push('/login');
